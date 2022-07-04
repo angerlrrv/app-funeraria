@@ -19,10 +19,10 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name required'),
-    lastName: Yup.string().required('Last name required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    firstName: Yup.string().required('Nombre Requerido'),
+    lastName: Yup.string().required('Apellido Requerido'),
+    email: Yup.string().email('Email invalido').required('Email es Requerido'),
+    password: Yup.string().required('Clave es Requerido'),
   });
 
   const defaultValues = {
@@ -50,15 +50,15 @@ export default function RegisterForm() {
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="firstName" label="First name" />
-          <RHFTextField name="lastName" label="Last name" />
+          <RHFTextField name="firstName" label="Nombre" />
+          <RHFTextField name="lastName" label="Apellido" />
         </Stack>
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Email" />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label="Clave"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -72,7 +72,7 @@ export default function RegisterForm() {
         />
 
         <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-          Register
+          Guardar
         </LoadingButton>
       </Stack>
     </FormProvider>

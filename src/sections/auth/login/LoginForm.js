@@ -46,11 +46,11 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Usuario" />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label="Clave"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -64,15 +64,15 @@ export default function LoginForm() {
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+    {/*   <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
-      </Stack>
+      </Stack> */}
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-        Login
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{mt:2}}>
+        Entrar
       </LoadingButton>
     </FormProvider>
   );
