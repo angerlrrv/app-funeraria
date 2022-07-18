@@ -10,23 +10,22 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-
+import useApi from './../../../hooks/useApi';
 // ----------------------------------------------------------------------
-
+import MsgInfo from '../register/MsgInfo';
 export default function LoginForm() {
   const navigate = useNavigate();
-
+ const { loading, data, fetchApi, error } = useApi();
   const [showPassword, setShowPassword] = useState(false);
-
+ const [open, setOpen] = useState(false);
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    email: Yup.string().email('Usuario Requerido').required('El usuario es su Email'),
+    clave: Yup.string().required('Clave Requerida'),
   });
 
   const defaultValues = {
     email: '',
-    password: '',
-    remember: true,
+    clave: '',
   };
 
   const methods = useForm({
@@ -39,8 +38,11 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async () => {
-    navigate('/dashboard', { replace: true });
+  const onSubmit = async (data) => {
+    //navigate('/dashboard/app', { replace: true });
+    await fetchApi(data, `v1/login`);
+    console.log(error);
+     !error && navigate('/dashboard/app', { replace: true });
   };
 
   return (
@@ -49,7 +51,7 @@ export default function LoginForm() {
         <RHFTextField name="email" label="Usuario" />
 
         <RHFTextField
-          name="password"
+          name="clave"
           label="Clave"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
@@ -64,16 +66,22 @@ export default function LoginForm() {
         />
       </Stack>
 
-    {/*   <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+      {/*   <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link variant="subtitle2" underline="hover">
           Forgot password?
         </Link>
       </Stack> */}
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{mt:2}}>
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{ mt: 2 }}>
         Entrar
       </LoadingButton>
+      <MsgInfo
+        color={error !== null ? 'error' : 'success'}
+        setOpen={setOpen}
+        open={open}
+        msg={error !== null ? error : data}
+      />
     </FormProvider>
   );
 }

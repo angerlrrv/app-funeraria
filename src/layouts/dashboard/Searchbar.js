@@ -55,7 +55,7 @@ export default function Searchbar() {
         <Slide direction="down" in={isOpen} mountOnEnter unmountOnExit>
           <SearchbarStyle>
             <Input
-              autoFocus
+              variant="outlined"
               fullWidth
               disableUnderline
               placeholder="Search…"
@@ -66,8 +66,8 @@ export default function Searchbar() {
               }
               sx={{ mr: 1, fontWeight: 'fontWeightBold' }}
             />
-            <Button variant="contained" onClick={handleClose}>
-              Search
+            <Button variant="contained" onClick={handleClose} disableElevation>
+              Buscar
             </Button>
           </SearchbarStyle>
         </Slide>
